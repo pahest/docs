@@ -1,0 +1,55 @@
+---
+title: Use another folder or disk
+description: Put your backups in a folder of your choice, for example on an external disk.
+---
+
+Pahest puts your backups in `~/pahest-backups`, in your home folder. You can choose another folder.
+
+## Choose the folder
+
+<Steps>
+  <Step title="Start Pahest">
+    Run `pahest` and wait for the question.
+  </Step>
+  <Step title="Open the options">
+    Press `o`, then Enter. Then press `f`, then Enter.
+  </Step>
+  <Step title="Type the folder">
+    Type the full path of the folder and press Enter. The path can start with `~`, which is your home folder.
+  </Step>
+  <Step title="Start the backup">
+    Pahest shows the free space of the new folder and asks the question again. Press Enter.
+  </Step>
+</Steps>
+
+This output is from a test with one small session:
+
+```text
+  ? Make a backup now? [Y/n]  (o = options) o
+  Options:
+    f  Choose another backups folder.
+    s  Save these answers, for runs without questions (pahest --profile).
+  ? Your choice (Enter = go back): f
+  ? Backup folder [~/pahest-backups] (Enter to keep): ~/Documents/pahest-backups
+  ✓ Free space: 78.1 GB · this backup needs 33+ B
+  ? Make a backup now? [Y/n]  (o = options)
+```
+
+Your choice is for this run only. To keep the choice, [save a profile](/commands#run-without-questions) and run `pahest --profile`.
+
+## Rules for the folder
+
+Pahest accepts a folder only if these rules are true:
+
+- The path is a full path, for example `~/Documents/pahest-backups` or `/Volumes/Backup/pahest-backups`.
+- The parent folder exists. Pahest makes only the last folder of the path.
+- The disk is connected, and you can write to the folder.
+- The folder is not in the data of an app: `~/.claude`, `~/.codex`, `/Applications` or `~/Library`. Folders of iCloud Drive are permitted.
+
+If Pahest cannot use the folder, it tells you the cause and asks again.
+
+## A folder on another disk
+
+On the disk of your home folder, a backup is fast and uses little new space. On another disk, Pahest copies each file in full. The backup then takes more time and uses its full size.
+
+Pahest always keeps your profiles and the list of all runs in `~/pahest-backups`. Do not delete `~/pahest-backups` after you move the backups.

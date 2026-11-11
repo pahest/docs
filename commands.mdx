@@ -1,0 +1,133 @@
+---
+title: Commands
+description: The forms of the pahest command, the options at the question, profiles, rebuild and exit codes.
+---
+
+Pahest is one command, `pahest`. Without an option, it asks one question and then makes a backup.
+
+## The commands
+
+| Command | Result |
+| --- | --- |
+| `pahest` | Shows the start screen, asks one question, makes a backup and writes a report. |
+| `pahest --profile` | Makes a backup without questions, with the answers that you saved as `default`. |
+| `pahest --profile NAME` | The same, with the answers that you saved as `NAME`. |
+| `pahest --regenerate` | Rebuilds the pages of the newest backup. Makes no new backup. |
+| `pahest --regenerate FOLDER` | Rebuilds the pages of the backup in `FOLDER`. |
+| `pahest --templates` | Shows the folder with the templates of the pages. You can edit the templates, then rebuild the pages. |
+| `pahest --version` | Shows the version of Pahest. |
+| `pahest --help` | Shows the help text. |
+
+## The options at the question
+
+A run without `--profile` asks `Make a backup now?`. If you press `o` and Enter, Pahest shows three options:
+
+```text
+  ? Make a backup now? [Y/n]  (o = options) o
+  Options:
+    r  Rebuild the web pages and reports of the last backup (2026-11-11-19-23-42). No new backup is made.
+    f  Choose another backups folder.
+    s  Save these answers, for runs without questions (pahest --profile).
+  ? Your choice (Enter = go back):
+```
+
+| Key | Result |
+| --- | --- |
+| `r` | Rebuilds the pages of the last backup. This option shows only when you have a backup. |
+| `f` | Asks for another backups folder. See [Use another folder or disk](/backups-folder). |
+| `s` | Saves your answers as a profile. |
+| Enter | Goes back to the question. |
+
+## Run without questions
+
+A profile is a file that holds your answers. With a profile, Pahest makes a backup without a question, so a script can start it. Pahest has no scheduler.
+
+<Steps>
+  <Step title="Start Pahest">
+    Run `pahest` and wait for the question.
+  </Step>
+  <Step title="Choose the folder">
+    If you want another backups folder, choose it first. See [Use another folder or disk](/backups-folder).
+  </Step>
+  <Step title="Save the answers">
+    Press `o`, then Enter. Then press `s`, then Enter.
+  </Step>
+  <Step title="Give the profile a name">
+    Press Enter to use the name `default`, or type a name.
+  </Step>
+</Steps>
+
+Pahest saves the profile and asks the question again:
+
+```text
+  ? Your choice (Enter = go back): s
+  ? Profile name [default]:
+  ✓ Saved /Users/you/pahest-backups/profiles/default.json
+      Run it later with:  pahest --profile
+  ? Make a backup now? [Y/n]  (o = options) n
+
+• Cancelled. Nothing was backed up.
+```
+
+To make a backup with the profile, run one of these commands:
+
+```sh
+pahest --profile
+pahest --profile nightly
+```
+
+The start screen then has a line for the profile, and the backup starts immediately:
+
+```text
+Pahest 0.1.3  ·  local backup for AI apps  ·  https://github.com/pahest/pahest
+Backups folder: /Users/you/Documents/pahest-backups
+Last backups: none yet.
+Profile: default (/Users/you/pahest-backups/profiles/default.json)
+```
+
+A run with a profile stops before the backup if it cannot use the backups folder, or if the disk has too little free space. The exit code is then `2`.
+
+## Rebuild the pages
+
+A rebuild makes the pages of a backup again with your version of Pahest. It makes no new backup. Use it after an update of Pahest, or after you change a template.
+
+You have two ways to start a rebuild:
+
+- At the question of `pahest`, press `o`, then Enter. Then press `r`, then Enter.
+- Run `pahest --regenerate`. To rebuild an older backup, add its folder: `pahest --regenerate ~/pahest-backups/2026-11-09-17-29-11`.
+
+This is the output of a rebuild of a backup with about 1,050 sessions:
+
+```text
+Pahest 0.1.3  ·  local backup for AI apps  ·  https://github.com/pahest/pahest
+Rebuilding the pages of a backup.
+Backup: /Users/you/pahest-backups/2026-11-11-19-23-42
+  made 2026-11-11 19:23:42 with pahest 0.1.3; status: completed
+
+── Rebuild the pages ───────────────────────────────────────────────────────────────────────────────
+  • Claude Code sessions…
+  • Claude desktop local sessions…
+  • Codex sessions…
+  • Web pages (index.html)…
+
+── Verification ────────────────────────────────────────────────────────────────────────────────────
+  ✓ 20,905 files written and read back (20,905 the same as before, they take no new disk space); checksums.sha256 updated
+
+── Done ────────────────────────────────────────────────────────────────────────────────────────────
+✓ Pages rebuilt in 3:27.
+  Open:    /Users/you/pahest-backups/2026-11-11-19-23-42/index.html
+  Report:  /Users/you/pahest-backups/2026-11-11-19-23-42/report.html
+```
+
+A rebuild does not read the apps, and it does not change the files that Pahest copied from them.
+
+## Exit codes
+
+A script that runs Pahest can read its exit code:
+
+| Code | Meaning |
+| --- | --- |
+| `0` | The backup is completed and has no problems. |
+| `1` | The backup is completed, but it has problems. The report lists them. |
+| `2` | You cancelled, or Pahest did not start. |
+| `130` | You stopped the backup with Ctrl+C. |

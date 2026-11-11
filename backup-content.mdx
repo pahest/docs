@@ -1,0 +1,38 @@
+---
+title: What a backup holds
+description: The files that Pahest saves from each app, and the main files of a backup.
+---
+
+Each backup is one folder of ordinary files in `~/pahest-backups`. The name of the folder is the date and time of the start, for example `2026-11-11-19-23-42`.
+
+## What Pahest saves
+
+| App | Folder on your Mac | What Pahest saves |
+| --- | --- | --- |
+| Claude Code | `~/.claude` | The sessions with their subagents and tool output. The text that you typed. Plans, to-do lists, file checkpoints and pasted pictures. Your settings, `CLAUDE.md`, skills, agents, commands and hooks. |
+| Codex | `~/.codex` | The sessions and the archived sessions. The text that you typed. Pasted pictures, generated pictures and visualizations. The files of ChatGPT projects. The databases with the thread list, the goals and the memories. Your settings, `AGENTS.md`, rules and skills. |
+| Claude desktop | The data folder of the app | The Cowork files, the Cowork disk image, and `claude_desktop_config.json`. |
+
+Pahest does not copy the login files of the apps.
+
+A new backup also keeps the sessions that an app deleted after an earlier backup. Thus the newest backup is the most complete one.
+
+## The files of a backup
+
+| File or folder | Content |
+| --- | --- |
+| `index.html` | The list of all sessions. Open this file first. |
+| `report.html` | What Pahest saved, and the problems that it found. |
+| `readable/` | The copies that you can read: one web page and one Markdown file for each session, and each picture as an image file. |
+| `claude-code/`, `codex/`, `claude-desktop/` | The files of the apps, without a change. |
+| `backup.log` | The text that Pahest printed during the run. |
+| `checksums.sha256` | A checksum of each file. A checksum is a short code that changes when the file changes. |
+| `source-manifest.jsonl` | The original path of each file on your Mac. |
+| `deleted-at-source.txt` | The items that an app deleted and that this backup keeps. |
+
+## Keep the backup private
+
+A backup holds the text that you typed and pasted, and your settings files. The settings files can hold API keys.
+
+- Do not put a backup in a shared folder.
+- Do not send a backup folder to another person. Send only the page or the file that the person must have.

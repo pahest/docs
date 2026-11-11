@@ -1,0 +1,113 @@
+---
+title: Problems and limits
+description: The messages that Pahest prints, what to do, and what Pahest does not do.
+---
+
+The messages on this page are the real text that Pahest prints. Only the user name is changed, to `you`.
+
+## The command is not found
+
+The Terminal prints `zsh: command not found: pahest` when Pahest is not installed. [Install](/install) Pahest, open a new Terminal window, and run `pahest` again.
+
+## Another run is in progress
+
+```text
+Another pahest run is still working (lock file /Users/you/pahest-backups/.pahest.lock). Try again later.
+```
+
+Pahest permits one run at a time.
+
+1. Find the Terminal window of the other run.
+2. Wait until that run stops.
+3. Run `pahest` again.
+
+## There is no terminal
+
+```text
+pahest asks questions before it starts, but there is no terminal to ask them in. Run it in a terminal, or use --profile to run with saved answers.
+```
+
+A script started `pahest`, and Pahest cannot ask its question. [Save a profile](/commands#run-without-questions), then use `pahest --profile` in the script.
+
+## The profile is not found
+
+```text
+  ✗ profile "nightly" not found (/Users/you/pahest-backups/profiles/nightly.json). Run pahest once without --profile and answer "y" when it offers to save your answers.
+```
+
+No profile has this name. [Save a profile](/commands#run-without-questions) with this name.
+
+## The backup folder cannot be used
+
+Pahest prints the cause after the words `The backup folder cannot be used:`.
+
+| Cause in the message | What to do |
+| --- | --- |
+| `does not exist; make that folder first` | Make the parent folder, then type the path again. |
+| `the disk “Backup” is not connected` | Connect the disk, then run `pahest` again. |
+| `cannot write to` | Choose a folder that you can write to. If macOS asks, permit access to the disk or folder. |
+| `it is inside` | Choose a folder that is not in the data of an app. |
+
+This is the message when the folder `Papers` does not exist:
+
+```text
+  ✗ The backup folder cannot be used: /Users/you/Papers does not exist; make that folder first, or choose another one
+```
+
+[Use another folder or disk](/backups-folder) has the rules for the folder.
+
+## The disk is full
+
+The `Free space` line of the start screen has a `✗` when the disk has too little free space. If the disk becomes full during a run, Pahest stops with this message:
+
+```text
+The backup disk is full (/Users/you/pahest-backups). The backup stopped; free some space and run it again.
+```
+
+1. Delete files, or an old backup folder. Keep the newest backup.
+2. Run `pahest` again.
+
+## The backup completed with problems
+
+The last part of the run says `Backup completed with problems`, and the exit code is `1`.
+
+1. Hold Cmd and click the `Report` address at the end of the run.
+2. Read the part **Problems** of the report. It names each file or part.
+3. Correct the cause, for example a folder that you cannot read.
+4. Run `pahest` again.
+
+## Claude Code deletes old sessions
+
+The start screen can show this line:
+
+```text
+  ! Claude Code deletes sessions older than 30 days by default. Backups keep them, but to stop the deletion add  "cleanupPeriodDays": 3650  to /Users/you/.claude/settings.json
+```
+
+Your backups keep these sessions if you make a backup before Claude Code deletes them. Pahest does not change the settings file. You can add the setting yourself.
+
+## The pages look old after an update
+
+An update of Pahest does not change the pages of your backups. [Rebuild the pages](/commands#rebuild-the-pages), then load the page again in the browser.
+
+## A session is not in the list
+
+Look at these causes in this sequence:
+
+1. A filter or a search hides the session. Click **Reset**.
+2. The session is a chat on claude.ai or chatgpt.com. These chats are not on your Mac.
+3. The app deleted the session before your first backup.
+
+## Limits
+
+- Pahest runs on macOS only.
+- Pahest does not back up your projects. Keep another backup for your project folders.
+- Pahest saves only the files on your Mac. It does not save your chats on claude.ai and chatgpt.com, or sessions that run only on a server. Use **Export data** in the settings of Claude and of ChatGPT for these chats.
+- A part of the reasoning of the AI is encrypted by Anthropic or OpenAI. Pahest keeps it, but you cannot read it.
+- Pahest keeps the Cowork disk image of the Claude desktop app, but you cannot read its content without the app.
+- Pahest has no scheduler. It makes a backup only when you or your script run it.
+- Pahest has no command that puts a session back into an app.
+
+## Get more help
+
+Open an issue on GitHub: [github.com/pahest/pahest/issues](https://github.com/pahest/pahest/issues). Add the last lines of the output. Read them first, because they can show the names of your folders.

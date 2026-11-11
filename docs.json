@@ -1,0 +1,59 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Pahest",
+  "description": "Pahest makes a local backup of your Claude Code and Codex sessions on a Mac, with pages that you can read offline.",
+  "colors": {
+    "primary": "#6541d6",
+    "light": "#b7a2fc",
+    "dark": "#6541d6"
+  },
+  "favicon": "/favicon.png",
+  "navbar": {
+    "links": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/pahest/pahest"
+      }
+    ]
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Get started",
+        "pages": [
+          "index",
+          "install",
+          "first-backup"
+        ]
+      },
+      {
+        "group": "Read your backup",
+        "pages": [
+          "sessions",
+          "session-page",
+          "pictures"
+        ]
+      },
+      {
+        "group": "Run it your way",
+        "pages": [
+          "commands",
+          "backups-folder"
+        ]
+      },
+      {
+        "group": "Help",
+        "pages": [
+          "backup-content",
+          "problems"
+        ]
+      }
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/pahest/pahest"
+    }
+  }
+}

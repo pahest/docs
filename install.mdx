@@ -1,0 +1,44 @@
+---
+title: Install
+description: Install Pahest on a Mac with Homebrew, and update it.
+---
+
+Pahest runs on macOS only. You install it with [Homebrew](https://brew.sh).
+
+## Install Pahest
+
+<Steps>
+  <Step title="Open the Terminal app">
+    Press Cmd+Space, type `Terminal`, and press Enter.
+  </Step>
+  <Step title="Install Pahest">
+    Paste this command and press Enter:
+
+    ```sh
+    brew install pahest/pahest/pahest
+    ```
+  </Step>
+  <Step title="Make sure that Pahest is installed">
+    Type this command and press Enter:
+
+    ```sh
+    pahest --version
+    ```
+
+    Pahest prints its version:
+
+    ```text
+    pahest 0.1.3
+    ```
+  </Step>
+</Steps>
+
+## Update Pahest
+
+To get the newest version, run this command:
+
+```sh
+brew upgrade pahest
+```
+
+An update does not change your backups. To give the pages of a backup the new look, [rebuild the pages](/commands#rebuild-the-pages).
