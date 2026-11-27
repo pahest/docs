@@ -2,7 +2,7 @@
 
 The user guide of [Pahest](https://github.com/pahest/pahest), a local backup of Claude Code and Codex sessions on a Mac.
 
-Read the guide at [pahest.revdoku.site](https://pahest.revdoku.site).
+Read the guide at [pahest.revdoku.net](https://pahest.revdoku.net).
 
 [Revdoku](https://revdoku.com) publishes the site from this repository. Each push to the `main` branch updates the site.
 
@@ -16,6 +16,7 @@ The guide is in the Mintlify format.
 | `*.mdx` | One page each. The top of each file has the title and a description of one line. |
 | `images/` | The screenshots, and `pahest-icon.png`, the icon with 512 pixels. |
 | `favicon.png` | The icon of the site, 64 pixels. |
+| `logo/` | The logo at the top of each page: the icon and the name. `light.png` is for the light theme and `dark.png` is for the dark theme. |
 
 ## Rules for the pages
 
